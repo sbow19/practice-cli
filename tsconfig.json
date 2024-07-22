@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "baseUrl": "./src",
+    "paths": {
+      //Add paths for ts module resolution, relative from baseURL 
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./project_types"
+    ],
+    "moduleResolution": "NodeNext",
+    "sourceMap": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "allowJs": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "allowUnreachableCode": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "strict": true
+  }
+}
