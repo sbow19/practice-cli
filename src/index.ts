@@ -1,83 +1,55 @@
 #!/usr/bin/env node
-import chalk from 'chalk';
-import chalkAnimation from 'chalk-animation';
+import { figletTitle } from './helper/fonts.js';
+import { mainDescriptionBox } from './helper/boxes.js';
+import {
+	checkDefaultExists,
+	createDefaultDirectory,
+	createDefaultConfigFile,
+} from './helper/state.js';
+import defaultCLISpinner from './helper/spinner.js';
 
-console.log(chalk.red('Hello world!'));
+/**
+ * START UP FLOW:
+ *  1. Generate default file on first download
+ *  2. Check whether default file exists; if not, ask user for basic details
+ *  3. Save default settings in default settings in appropriate location based on OS.
+ *  4. Fetch data from APIs, such as weather and time for specific location (loading screen)
+ *  5. Display data from API fetch.
+ *  6. Display breadcrumb trail
+ *  7. Display options
+ */
 
-console.log(chalk.blue('Watch this world!'));
+console.log(figletTitle('PRACTICE CLI'));
 
-console.log(chalk.green('Be the best!'));
+console.log(
+	mainDescriptionBox(
+		'A simple command-line interface tool to show off some JS functionality!',
+	),
+);
 
-//Creating colour templates
-const log = console.log;
-const name = 'Sam';
+const mySpinner = defaultCLISpinner('Loading...');
+mySpinner.start();
 
-const error = chalk.bold.red;
-const warning = chalk.italic.underline.rgb(255, 165, 0);
-const greeting = chalk.bold.bgGray.green(`Hello ${name}`);
+const configCheck = await checkDefaultExists();
 
-log(error('This is an error!'));
-log(warning('This is a warning!'));
-log(greeting);
-
-//Animations with Chalk Animation
-let str = 'Loading.';
-let stringModCount = 0;
-
-const pulse = chalkAnimation.pulse(str, 1);
-
-const intervalId = setInterval(() => {
-	if (stringModCount >= 3) {
-		stringModCount = 0;
-		pulse.replace(str);
-	} else {
-		pulse.replace((str += '.'));
-		stringModCount++;
+try {
+	if (!configCheck.configDirExists) {
+		mySpinner.update({
+			text: 'No directory found... creating one...',
+		});
+		await createDefaultDirectory();
+	} else if (!configCheck.configFileExists) {
+		mySpinner.update({
+			text: 'No config file found... creating one...',
+		});
+		await createDefaultConfigFile();
+	} else if (configCheck.configSettings) {
+		//Start app with default settings
+		mySpinner.update({
+			text: 'Settings found!',
+		});
+		mySpinner.success().stop().clear();
 	}
-}, 1000);
-
-setTimeout(() => {
-	clearInterval(intervalId);
-	pulse.stop();
-	console.clear();
-}, 10000);
-
-//CLI Table
-import blessed from 'blessed';
-
-const screen = blessed.screen();
-
-const table = blessed.table({
-	top: '50%',
-	left: 'left',
-	width: '80%',
-	height: '50%',
-	border: {
-		type: 'line',
-	},
-	columns: [
-		{ header: 'Name', width: 20 },
-		{ header: 'Age', width: 10 },
-		{ header: 'City', width: 20 },
-	],
-	data: [
-		['Alice', '30', 'New York'],
-		['Bob', '25', 'San Francisco'],
-		['Charlie', '35', 'Chicago'],
-	],
-	style: {
-		border: {
-			fg: 'cyan',
-		},
-		header: {
-			bg: 'blue',
-			fg: 'white',
-		},
-		cell: {
-			fg: 'white',
-		},
-	},
-});
-
-screen.append(table);
-screen.render();
+} catch (e) {
+	//Record some error fetching config settings --> close app
+}
