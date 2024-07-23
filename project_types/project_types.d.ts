@@ -9,6 +9,7 @@ declare global {
 
   type ConfigSettings = {
     name: string,
-    location: string
+    country: string,
+    city: string
   }
 }

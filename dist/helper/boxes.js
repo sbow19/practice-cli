@@ -1,13 +1,13 @@
 import boxen from "boxen";
 import chalk from "chalk";
-export const mainDescriptionBox = (inputText) => {
+export const mainDescriptionBox = (inputText, title = "") => {
     const mainText = chalk.red(inputText);
     return boxen(mainText, {
         padding: 1,
         margin: {
             bottom: 1
         },
-        title: "Welcome",
+        title: title,
         titleAlignment: "center",
         borderStyle: {
             left: "#",
