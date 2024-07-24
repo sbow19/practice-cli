@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import { input, confirm, search } from '@inquirer/prompts';
+import { getGeolocation } from '../api/weather.js';
 
 //Helper functions
 const determineDirectoryPath = (): [string, string] => {
@@ -27,9 +28,9 @@ const getListOfCountries = async () => {
 
 	return listOfCountries;
 };
- 
-const getListOfCities = async(countryName: string) => {
-	const countryContentsRaw = await fs.readFile('./dist/assets/countries.json',  {
+
+const getListOfCities = async (countryName: string) => {
+	const countryContentsRaw = await fs.readFile('./dist/assets/countries.json', {
 		encoding: 'utf-8',
 	});
 	const countriesContentParsed: Object = await JSON.parse(countryContentsRaw);
@@ -76,7 +77,7 @@ export const checkDefaultExists = (): Promise<ConfigCheck> => {
 	});
 };
 
-export const createDefaults = (configCheck: ConfigCheck): Promise<boolean> => {
+export const createDefaults = (configCheck: ConfigCheck): Promise<ConfigSettings | false> => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			if (!configCheck.configDirExists) {
@@ -84,14 +85,14 @@ export const createDefaults = (configCheck: ConfigCheck): Promise<boolean> => {
 				await createDefaultDirectory();
 
 				//Create file
-				await createDefaultConfigFile();
+				const configSettings = await createDefaultConfigFile();
 
-				resolve(true);
+				resolve(configSettings);
 			} else if (!configCheck.configFileExists) {
 				//Create file
-				await createDefaultConfigFile();
+				const configSettings = await createDefaultConfigFile();
 
-				resolve(true);
+				resolve(configSettings);
 			}
 		} catch (e) {
 			//Record some error fetching config settings --> close app
@@ -103,7 +104,7 @@ export const createDefaults = (configCheck: ConfigCheck): Promise<boolean> => {
 const createDefaultDirectory = (): Promise<void> => {
 	return new Promise(async (resolve, reject) => {
 		//Determine file path
-		const [CONFIG_DIR] = determineDirectoryPath();
+		const [, CONFIG_DIR] = determineDirectoryPath();
 		try {
 			await fs.mkdir(CONFIG_DIR, { recursive: true });
 			resolve();
@@ -113,20 +114,21 @@ const createDefaultDirectory = (): Promise<void> => {
 	});
 };
 
-const createDefaultConfigFile = (): Promise<boolean> => {
+const createDefaultConfigFile = (): Promise<ConfigSettings> => {
 	return new Promise(async (resolve, reject) => {
 		//Determine file path
-		const [CONFIG_FILE, ] = determineDirectoryPath();
+		const [CONFIG_FILE] = determineDirectoryPath();
 
 		//UserCOnfigObject
 		let configSettings: ConfigSettings = {
 			name: 'Default',
-			country: "",
-			city: ""
+			country: '',
+			city: {
+				name: '',
+				latitude: 0,
+				longitude: 0,
+			},
 		};
-
-		//Which country are you located in?
-		const listOfCountries = await getListOfCountries();
 
 		//Prompt for user input
 		configSettings.name = await input({
@@ -134,6 +136,10 @@ const createDefaultConfigFile = (): Promise<boolean> => {
 			required: true,
 		});
 
+		//Which country are you located in?
+		const listOfCountries = await getListOfCountries();
+
+		//Prompt for user name
 		const country = await search({
 			message: 'Which country are you located in?',
 			source: (input) => {
@@ -161,7 +167,8 @@ const createDefaultConfigFile = (): Promise<boolean> => {
 		//And which city?
 		const listOfCities = await getListOfCities(country);
 
-		const city = await search({
+		//Prompt for user city
+		const cityName = await search({
 			message: 'Which city are you located in?',
 			source: (input) => {
 				if (input) {
@@ -186,14 +193,27 @@ const createDefaultConfigFile = (): Promise<boolean> => {
 		});
 
 		configSettings.country = country;
-		configSettings.city = city;
+		configSettings.city.name = cityName;
+
+		//Fetch city latitude and longitude
+		try {
+			const { latitude, longitude } = await getGeolocation(country, cityName);
+			configSettings.city.latitude = latitude;
+			configSettings.city.longitude = longitude;
+		} catch (e) {
+			console.log(
+				'Failed to fetch geolocation data. Using default coordinates.',
+			);
+			configSettings.city.latitude = 0;
+			configSettings.city.longitude = 0;
+		}
 
 		//Write data to new json file
 		try {
 			await fs.writeFile(CONFIG_FILE, JSON.stringify(configSettings));
-			resolve(true);
+			resolve(configSettings);
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 			reject(false);
 		}
 	});

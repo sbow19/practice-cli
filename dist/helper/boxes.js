@@ -24,4 +24,18 @@ export const mainDescriptionBox = (inputText, title = "") => {
         backgroundColor: "black",
     });
 };
+export const weatherBox = (inputText) => {
+    return boxen(inputText, {
+        padding: 1,
+        margin: {
+            bottom: 1
+        },
+        title: "Weather",
+        titleAlignment: "left",
+        borderStyle: "round",
+        align: "left",
+        borderColor: "white",
+        backgroundColor: "black",
+    });
+};
 //# sourceMappingURL=boxes.js.map
