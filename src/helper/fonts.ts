@@ -22,3 +22,17 @@ export const figletTitle = (inputText: string) => {
 
 	return title;
 };
+
+export const anilistTitle = (inputText: string) =>{
+	const ASCII = figlet.textSync(inputText, {
+		font: 'Standard',
+        horizontalLayout: 'default',
+        verticalLayout: 'default',
+        width: 50,
+        whitespaceBreak: true,
+	});
+
+	const ASCIIColor = chalk.red(ASCII);
+
+	return ASCIIColor;
+}

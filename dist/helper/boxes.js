@@ -24,6 +24,20 @@ export const mainDescriptionBox = (inputText, title = "") => {
         backgroundColor: "black",
     });
 };
+export const anilistAPIHeaderBox = (inputText) => {
+    return boxen(inputText, {
+        padding: 1,
+        margin: {
+            bottom: 1
+        },
+        title: "AniList API",
+        titleAlignment: "left",
+        borderStyle: "round",
+        align: "left",
+        borderColor: "red",
+        backgroundColor: "black",
+    });
+};
 export const weatherBox = (inputText) => {
     return boxen(inputText, {
         padding: 1,

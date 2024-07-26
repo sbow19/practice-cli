@@ -16,4 +16,22 @@ declare global {
       longitude: number
     }
   }
+
+  interface UserSelectionAniList extends UserSelection {
+    animeTitle: string,
+    searchAttributes: AniListSelectionAttributes
+  }
+
+  interface UserSelection {
+    areDetailsCorrect: boolean
+  }
+
+  type AniListSelectionAttributes = {
+    genre: boolean
+    "main_character": boolean
+    "supporting character": boolean
+    description: boolean
+    averageScore: boolean
+    popularity: boolean
+  }
 }

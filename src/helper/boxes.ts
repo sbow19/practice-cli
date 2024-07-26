@@ -31,6 +31,25 @@ export const mainDescriptionBox = (inputText: string, title = "") =>{
     )
 };
 
+export const anilistAPIHeaderBox = (inputText: string) =>{
+
+    return boxen(
+        inputText,
+        {
+            padding: 1,
+            margin: {
+                bottom: 1
+            },
+            title: "AniList API",
+            titleAlignment: "left",
+            borderStyle: "round",
+            align: "left",
+            borderColor: "red",
+            backgroundColor: "black",
+        }
+    )
+}
+
 export const weatherBox = (inputText: string) =>{
 
     return boxen(

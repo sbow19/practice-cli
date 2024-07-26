@@ -6,6 +6,9 @@
     "baseUrl": "./src",
     "paths": {
       //Add paths for ts module resolution, relative from baseURL 
+      "#helper/*": ["helper/*"],
+      "#api/*": ["api/*"],
+      "#features/*": ["features/*"]
     },
     "typeRoots": [
       "./node_modules/@types",

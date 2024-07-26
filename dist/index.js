@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-import { figletTitle } from './helper/fonts.js';
-import { mainDescriptionBox, weatherBox } from './helper/boxes.js';
-import { checkDefaultExists, createDefaults } from './helper/state.js';
-import defaultCLISpinner from './helper/spinner.js';
-import getWeather from './api/weather.js';
-import { removeLines } from './helper/stdout_funcs.js';
-import timeout from './helper/timeout.js';
+import { mainDescriptionBox, weatherBox } from '#helper/boxes.js';
+import { checkDefaultExists, createDefaults } from '#helper/state.js';
+import defaultCLISpinner from '#helper/spinner.js';
+import getWeather from '#api/weather.js';
+import { removeLines, clearScreen } from '#helper/stdout_funcs.js';
+import timeout from '#helper/timeout.js';
 import { select } from '@inquirer/prompts';
-import { keypressListener } from './helper/listeners.js';
+import { keypressListener } from '#helper/listeners.js';
+import aniListApp from '#features/anilist.js';
 let isCLIActive = true;
 keypressListener();
 let mySpinner = defaultCLISpinner('Loading...');
@@ -47,8 +47,7 @@ else if (configCheck.configSettings) {
 await timeout(2000);
 await removeLines(1);
 while (isCLIActive) {
-    console.log(figletTitle('PRACTICE CLI'));
-    console.log(mainDescriptionBox('A simple command-line interface tool to show off some JS functionality!', `Welcome ${userSettings?.name ?? 'User'}`));
+    clearScreen(mainDescriptionBox('A simple command-line interface tool to show off some JS functionality!', `Welcome ${userSettings?.name ?? 'User'}`));
     mySpinner.update({
         text: 'Fetching weather data...',
     });
@@ -74,7 +73,7 @@ while (isCLIActive) {
         });
     }
     mySpinner.stop();
-    await removeLines(1);
+    await removeLines(2);
     const answer = await select({
         message: "Select an option",
         choices: [
@@ -89,9 +88,9 @@ while (isCLIActive) {
                 description: "Generate a random sentence"
             },
             {
-                name: "Yelp Reviews",
-                value: "yelp",
-                description: "Fetch Yelp reviews for a business"
+                name: "AniList",
+                value: "anilist",
+                description: "Fetch information on anime"
             },
             {
                 name: "Settings",
@@ -108,10 +107,13 @@ while (isCLIActive) {
     switch (answer) {
         case "exit":
             isCLIActive = false;
+            break;
         case "settings":
         case "hangman":
         case "sentence":
-        case "yelp":
+        case "anilist":
+            await aniListApp();
+            break;
     }
     ;
     console.clear();

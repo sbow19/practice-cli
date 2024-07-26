@@ -1,23 +1,22 @@
 #!/usr/bin/env node
-import { figletTitle } from './helper/fonts.js';
-import { mainDescriptionBox, weatherBox } from './helper/boxes.js';
-import { checkDefaultExists, createDefaults } from './helper/state.js';
-import defaultCLISpinner from './helper/spinner.js';
-import getWeather from './api/weather.js';
-import { removeLines } from './helper/stdout_funcs.js';
-import timeout from './helper/timeout.js';
+import { mainDescriptionBox, weatherBox } from '#helper/boxes.js';
+import { checkDefaultExists, createDefaults } from '#helper/state.js';
+import defaultCLISpinner from '#helper/spinner.js';
+import getWeather from '#api/weather.js';
+import { removeLines, clearScreen } from '#helper/stdout_funcs.js';
+import timeout from '#helper/timeout.js';
 import { select } from '@inquirer/prompts';
-import { keypressListener } from './helper/listeners.js';
+import { keypressListener } from '#helper/listeners.js';
+import aniListApp from '#features/anilist.js';
 
 /**
  * START UP FLOW:
  *  1. Generate default file on first download - DONE
  *  2. Check whether default file exists; if not, ask user for basic details - DONE
  *  3. Save default settings in default settings in appropriate location based on OS. - DONE
- *  4. Fetch data from APIs, such as weather and time for specific location (loading screen)
- *  5. Display data from API fetch.
- *  6. Display breadcrumb trail
- *  7. Display options
+ *  4. Fetch data from APIs, such as weather and time for specific location (loading screen) - DONE
+ *  5. Display data from API fetch. - DONE
+ *  6. Display options - DONE
  */
 
 let isCLIActive = true;
@@ -65,16 +64,15 @@ if (!configCheck.configDirExists || !configCheck.configFileExists) {
 await timeout(2000);
 await removeLines(1);
 
+
+//MAIN HUB EVENT LOOP
 while(isCLIActive){
 
-	// Print the title with figlet
-	console.log(figletTitle('PRACTICE CLI'));
-	console.log(
-		mainDescriptionBox(
-			'A simple command-line interface tool to show off some JS functionality!',
-			`Welcome ${userSettings?.name ?? 'User'}`,
-		),
-	);
+	//Print title with figlet
+	clearScreen(mainDescriptionBox(
+		'A simple command-line interface tool to show off some JS functionality!',
+		`Welcome ${userSettings?.name ?? 'User'}`,
+	));
 
 	//Fetch weather and time from APIs
 	mySpinner.update({
@@ -104,7 +102,7 @@ while(isCLIActive){
 	}
 
 	mySpinner.stop();
-	await removeLines(1);
+	await removeLines(2);
 
 	//Pick script
 	const answer = await select({
@@ -121,9 +119,9 @@ while(isCLIActive){
 				description: "Generate a random sentence"
 			}, 
 			{
-				name: "Yelp Reviews",
-				value: "yelp",
-				description: "Fetch Yelp reviews for a business"
+				name: "AniList",
+				value: "anilist",
+				description: "Fetch information on anime"
 			},
 			{
 				name: "Settings",
@@ -141,16 +139,16 @@ while(isCLIActive){
 	switch(answer){
 		case "exit":
 			isCLIActive = false;
-			
+			break;
 		case "settings":
 			
 		case "hangman":
 			
 		case "sentence": 
 			
-		case "yelp":
-			
-			
+		case "anilist":
+			await aniListApp();
+		break
 	};
 
 	console.clear();
