@@ -64,15 +64,15 @@ if (!configCheck.configDirExists || !configCheck.configFileExists) {
 await timeout(2000);
 await removeLines(1);
 
-
 //MAIN HUB EVENT LOOP
-while(isCLIActive){
-
+while (isCLIActive) {
 	//Print title with figlet
-	clearScreen(mainDescriptionBox(
-		'A simple command-line interface tool to show off some JS functionality!',
-		`Welcome ${userSettings?.name ?? 'User'}`,
-	));
+	clearScreen([
+		mainDescriptionBox(
+			'A simple command-line interface tool to show off some JS functionality!',
+			`Welcome ${userSettings?.name ?? 'User'}`,
+		),
+	]);
 
 	//Fetch weather and time from APIs
 	mySpinner.update({
@@ -106,54 +106,50 @@ while(isCLIActive){
 
 	//Pick script
 	const answer = await select({
-		message: "Select an option",
+		message: 'Select an option',
 		choices: [
 			{
-				name: "Hangman",
-                value: "hangman",
-				description: "A little hangman game"
-			},
-            {
-				name: "Sentence Generator",
-				value: "sentence",
-				description: "Generate a random sentence"
-			}, 
-			{
-				name: "AniList",
-				value: "anilist",
-				description: "Fetch information on anime"
+				name: 'Hangman',
+				value: 'hangman',
+				description: 'A little hangman game',
 			},
 			{
-				name: "Settings",
-				value: "settings",
-                description: "Edit your settings"
+				name: 'Sentence Generator',
+				value: 'sentence',
+				description: 'Generate a random sentence',
 			},
 			{
-                name: "Exit",
-                value: "exit",
-                description: "Exit the program"
-            }
-		]
+				name: 'AniList',
+				value: 'anilist',
+				description: 'Fetch information on anime',
+			},
+			{
+				name: 'Settings',
+				value: 'settings',
+				description: 'Edit your settings',
+			},
+			{
+				name: 'Exit',
+				value: 'exit',
+				description: 'Exit the program',
+			},
+		],
 	});
 
-	switch(answer){
-		case "exit":
+	switch (answer) {
+		case 'exit':
 			isCLIActive = false;
 			break;
-		case "settings":
-			
-		case "hangman":
-			
-		case "sentence": 
-			
-		case "anilist":
+		case 'settings':
+
+		case 'hangman':
+
+		case 'sentence':
+
+		case 'anilist':
 			await aniListApp();
-		break
-	};
+			break;
+	}
 
 	console.clear();
-
 }
-
-
-

@@ -28,3 +28,4 @@ export const clearScreen = (additionalContent: string[] = []): void => {
 		}
 	}
 };
+

@@ -27,11 +27,32 @@ declare global {
   }
 
   type AniListSelectionAttributes = {
-    genre: boolean
-    "main_character": boolean
-    "supporting character": boolean
+    genres: boolean
+    mainCharacters: boolean
+    supportingCharacters: boolean
     description: boolean
     averageScore: boolean
     popularity: boolean
+  }
+
+  type AniListAPIResponse = {
+    success: boolean,
+    data: AniListData
+  }
+
+  type AniListData = {
+     __typename: 'Media'
+    genres?: Array<string>
+    averageScore?: Number
+    popularity?: Number
+    description?: string
+    mainCharacters?: {
+      __typename: string
+      nodes: Array<{name: {full:string}}>
+    }
+    supportingCharacters?: {
+      __typename: string
+      nodes: Array<{name: {full:string}}>
+    }
   }
 }

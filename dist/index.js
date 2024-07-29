@@ -47,7 +47,9 @@ else if (configCheck.configSettings) {
 await timeout(2000);
 await removeLines(1);
 while (isCLIActive) {
-    clearScreen(mainDescriptionBox('A simple command-line interface tool to show off some JS functionality!', `Welcome ${userSettings?.name ?? 'User'}`));
+    clearScreen([
+        mainDescriptionBox('A simple command-line interface tool to show off some JS functionality!', `Welcome ${userSettings?.name ?? 'User'}`),
+    ]);
     mySpinner.update({
         text: 'Fetching weather data...',
     });
@@ -75,47 +77,46 @@ while (isCLIActive) {
     mySpinner.stop();
     await removeLines(2);
     const answer = await select({
-        message: "Select an option",
+        message: 'Select an option',
         choices: [
             {
-                name: "Hangman",
-                value: "hangman",
-                description: "A little hangman game"
+                name: 'Hangman',
+                value: 'hangman',
+                description: 'A little hangman game',
             },
             {
-                name: "Sentence Generator",
-                value: "sentence",
-                description: "Generate a random sentence"
+                name: 'Sentence Generator',
+                value: 'sentence',
+                description: 'Generate a random sentence',
             },
             {
-                name: "AniList",
-                value: "anilist",
-                description: "Fetch information on anime"
+                name: 'AniList',
+                value: 'anilist',
+                description: 'Fetch information on anime',
             },
             {
-                name: "Settings",
-                value: "settings",
-                description: "Edit your settings"
+                name: 'Settings',
+                value: 'settings',
+                description: 'Edit your settings',
             },
             {
-                name: "Exit",
-                value: "exit",
-                description: "Exit the program"
-            }
-        ]
+                name: 'Exit',
+                value: 'exit',
+                description: 'Exit the program',
+            },
+        ],
     });
     switch (answer) {
-        case "exit":
+        case 'exit':
             isCLIActive = false;
             break;
-        case "settings":
-        case "hangman":
-        case "sentence":
-        case "anilist":
+        case 'settings':
+        case 'hangman':
+        case 'sentence':
+        case 'anilist':
             await aniListApp();
             break;
     }
-    ;
     console.clear();
 }
 //# sourceMappingURL=index.js.map

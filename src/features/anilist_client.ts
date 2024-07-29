@@ -1,7 +1,8 @@
-import { ApolloClient, InMemoryCache, HttpLink} from '@apollo/client/core';
+import { ApolloClient, InMemoryCache} from "@apollo/client/core/core.cjs";
+import {HttpLink} from "@apollo/client/link/http/http.cjs";
 import fetch from 'cross-fetch';
 
-export const client = new ApolloClient({
+export const graphQLClient = new ApolloClient({
     link: new HttpLink({ uri: 'https://graphql.anilist.co', fetch }),
     cache: new InMemoryCache()
-  });
+});
