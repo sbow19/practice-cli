@@ -55,4 +55,6 @@ declare global {
       nodes: Array<{name: {full:string}}>
     }
   }
+
+  type ValidationResult =  "try again" | "default" | "okay"
 }
