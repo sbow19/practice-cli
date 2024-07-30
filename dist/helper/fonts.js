@@ -28,4 +28,15 @@ export const anilistTitle = (inputText) => {
     const ASCIIColor = chalk.red(ASCII);
     return ASCIIColor;
 };
+export const hangmanTitle = (inputText) => {
+    const ASCII = figlet.textSync(inputText, {
+        font: 'Standard',
+        horizontalLayout: 'default',
+        verticalLayout: 'default',
+        width: 50,
+        whitespaceBreak: true,
+    });
+    const ASCIIColor = chalk.red(ASCII);
+    return ASCIIColor;
+};
 //# sourceMappingURL=fonts.js.map

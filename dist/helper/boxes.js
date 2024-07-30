@@ -38,6 +38,19 @@ export const anilistAPIHeaderBox = (inputText) => {
         backgroundColor: "black",
     });
 };
+export const hangmanHeaderBox = (inputText) => {
+    return boxen(inputText, {
+        padding: 1,
+        margin: {
+            bottom: 1
+        },
+        titleAlignment: "left",
+        borderStyle: "round",
+        align: "left",
+        borderColor: "red",
+        backgroundColor: "black",
+    });
+};
 export const weatherBox = (inputText) => {
     return boxen(inputText, {
         padding: 1,

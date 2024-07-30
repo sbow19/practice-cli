@@ -50,6 +50,24 @@ export const anilistAPIHeaderBox = (inputText: string) =>{
     )
 }
 
+export const hangmanHeaderBox = (inputText: string) =>{
+
+    return boxen(
+        inputText,
+        {
+            padding: 1,
+            margin: {
+                bottom: 1
+            },
+            titleAlignment: "left",
+            borderStyle: "round",
+            align: "left",
+            borderColor: "red",
+            backgroundColor: "black",
+        }
+    )
+}
+
 export const weatherBox = (inputText: string) =>{
 
     return boxen(

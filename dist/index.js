@@ -8,6 +8,7 @@ import timeout from '#helper/timeout.js';
 import { select } from '@inquirer/prompts';
 import { keypressListener } from '#helper/listeners.js';
 import aniListApp from '#features/anilist.js';
+import hangmanApp from '#featureshangman.js';
 let isCLIActive = true;
 keypressListener();
 let mySpinner = defaultCLISpinner('Loading...');
@@ -112,6 +113,8 @@ while (isCLIActive) {
             break;
         case 'settings':
         case 'hangman':
+            await hangmanApp();
+            break;
         case 'sentence':
         case 'anilist':
             await aniListApp();
