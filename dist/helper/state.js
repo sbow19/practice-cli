@@ -85,7 +85,7 @@ const createDefaultDirectory = () => {
         }
     });
 };
-const createDefaultConfigFile = () => {
+export const createDefaultConfigFile = () => {
     return new Promise(async (resolve, reject) => {
         const [CONFIG_FILE] = determineDirectoryPath();
         let configSettings = {

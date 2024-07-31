@@ -9,6 +9,8 @@ import { select } from '@inquirer/prompts';
 import { keypressListener } from '#helper/listeners.js';
 import aniListApp from '#features/anilist.js';
 import hangmanApp from '#featureshangman.js';
+import randomSentenceApp from '#features/random_sentence.js';
+import settings from '#featuressettings.js';
 let isCLIActive = true;
 keypressListener();
 let mySpinner = defaultCLISpinner('Loading...');
@@ -112,10 +114,14 @@ while (isCLIActive) {
             isCLIActive = false;
             break;
         case 'settings':
+            await settings();
+            break;
         case 'hangman':
             await hangmanApp();
             break;
         case 'sentence':
+            await randomSentenceApp();
+            break;
         case 'anilist':
             await aniListApp();
             break;
