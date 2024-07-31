@@ -114,7 +114,7 @@ const createDefaultDirectory = (): Promise<void> => {
 	});
 };
 
-const createDefaultConfigFile = (): Promise<ConfigSettings> => {
+export const createDefaultConfigFile = (): Promise<ConfigSettings> => {
 	return new Promise(async (resolve, reject) => {
 		//Determine file path
 		const [CONFIG_FILE] = determineDirectoryPath();
