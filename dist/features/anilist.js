@@ -80,54 +80,51 @@ const getUserSelection = () => {
         }
     });
 };
-const aniListApp = () => {
-    return new Promise(async (resolve, reject) => {
-        let isAnilistActive = true;
-        const mySpinner = defaultCLISpinner('Fetching anime data...');
-        const anilistTitleText = anilistTitle('AniList');
-        const anilistTitleGraphic = anilistAPIHeaderBox(anilistTitleText);
-        clearScreen([
-            anilistTitleGraphic,
-            mainDescriptionBox('Search information about your favourite anime!'),
-        ]);
-        await timeout(1000);
-        isAnilistActive = await confirm({
-            message: 'Do you want to continue?',
-            default: true,
-        });
-        await removeLines(2);
-        while (isAnilistActive) {
-            if (isAnilistActive) {
-                const attributesSelection = await getUserSelection();
-                mySpinner.start();
-                const aniListAPIResponse = await fetchAnilistData(attributesSelection);
-                mySpinner.stop();
-                await removeLines(1);
-                if (!aniListAPIResponse.success) {
-                    console.error("An error occurred while fetching data from AniList API.");
-                    await timeout(2000);
-                    await removeLines(3);
-                    isAnilistActive = await confirm({
-                        message: 'Do you want to continue?',
-                        default: true,
-                    });
-                    await removeLines(3);
-                    continue;
-                }
-                console.log(AniListTable(aniListAPIResponse.data));
-                await timeout(1500);
+const aniListApp = async () => {
+    let isAnilistActive = true;
+    const mySpinner = defaultCLISpinner('Fetching anime data...');
+    const anilistTitleText = anilistTitle('AniList');
+    const anilistTitleGraphic = anilistAPIHeaderBox(anilistTitleText);
+    clearScreen([
+        anilistTitleGraphic,
+        mainDescriptionBox('Search information about your favourite anime!'),
+    ]);
+    await timeout(1000);
+    isAnilistActive = await confirm({
+        message: 'Do you want to continue?',
+        default: true,
+    });
+    await removeLines(2);
+    while (isAnilistActive) {
+        if (isAnilistActive) {
+            const attributesSelection = await getUserSelection();
+            mySpinner.start();
+            const aniListAPIResponse = await fetchAnilistData(attributesSelection);
+            mySpinner.stop();
+            await removeLines(1);
+            if (!aniListAPIResponse.success) {
+                console.error("An error occurred while fetching data from AniList API.");
+                await timeout(2000);
+                await removeLines(3);
                 isAnilistActive = await confirm({
                     message: 'Do you want to continue?',
                     default: true,
                 });
-                clearScreen([
-                    anilistTitleGraphic,
-                    mainDescriptionBox('Search information about your favourite anime!'),
-                ]);
+                await removeLines(3);
+                continue;
             }
+            console.log(AniListTable(aniListAPIResponse.data));
+            await timeout(1500);
+            isAnilistActive = await confirm({
+                message: 'Do you want to continue?',
+                default: true,
+            });
+            clearScreen([
+                anilistTitleGraphic,
+                mainDescriptionBox('Search information about your favourite anime!'),
+            ]);
         }
-        resolve();
-    });
+    }
 };
 export default aniListApp;
 //# sourceMappingURL=anilist.js.map

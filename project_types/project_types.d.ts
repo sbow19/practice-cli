@@ -56,5 +56,8 @@ declare global {
     }
   }
 
-  type ValidationResult =  "try again" | "default" | "okay"
+  type PlayerGuess = {
+    guessString: string,
+    guessType: "full" | "single"
+  }
 }

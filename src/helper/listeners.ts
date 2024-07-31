@@ -10,8 +10,9 @@ export const keypressListener = (): void=>{
     
     // Define a function to handle key presses
     function handleKeyPress(str) {
+
         switch(str){
-            case "q":
+            case "\\":
                 console.log("Exiting...");
                 process.exit(0);
             default:

@@ -100,77 +100,74 @@ const getUserSelection = (): Promise<UserSelectionAniList> => {
 };
 
 
-const aniListApp = (): Promise<void> => {
-	return new Promise(async (resolve, reject) => {
-		//Main event loop variable
-		let isAnilistActive = true;
+const aniListApp = async(): Promise<void> => {
+	
+	//Main event loop variable
+	let isAnilistActive = true;
 
-		//Create spinner to be user in app
-		const mySpinner = defaultCLISpinner('Fetching anime data...');
+	//Create spinner to be user in app
+	const mySpinner = defaultCLISpinner('Fetching anime data...');
 
-		//print title and description boc
-		const anilistTitleText = anilistTitle('AniList');
-		const anilistTitleGraphic = anilistAPIHeaderBox(anilistTitleText);
-		clearScreen([
-			anilistTitleGraphic,
-			mainDescriptionBox('Search information about your favourite anime!'),
-		]);
+	//print title and description boc
+	const anilistTitleText = anilistTitle('AniList');
+	const anilistTitleGraphic = anilistAPIHeaderBox(anilistTitleText);
+	clearScreen([
+		anilistTitleGraphic,
+		mainDescriptionBox('Search information about your favourite anime!'),
+	]);
 
-		await timeout(1000);
+	await timeout(1000);
 
-		//Prompt for continue
-		isAnilistActive = await confirm({
-			message: 'Do you want to continue?',
-			default: true,
-		});
+	//Prompt for continue
+	isAnilistActive = await confirm({
+		message: 'Do you want to continue?',
+		default: true,
+	});
 
-		await removeLines(2);
+	await removeLines(2);
 
-		while (isAnilistActive) {
+	while (isAnilistActive) {
 
-			if (isAnilistActive) {
-				const attributesSelection = await getUserSelection();
+		if (isAnilistActive) {
+			const attributesSelection = await getUserSelection();
 
-				mySpinner.start();
+			mySpinner.start();
 
-				//Make API call
-				const aniListAPIResponse = await fetchAnilistData(attributesSelection);
+			//Make API call
+			const aniListAPIResponse = await fetchAnilistData(attributesSelection);
 
-				mySpinner.stop();
-				await removeLines(1)
+			mySpinner.stop();
+			await removeLines(1)
 
-				if(!aniListAPIResponse.success){
-					console.error("An error occurred while fetching data from AniList API.");
-					await timeout(2000);
-					await removeLines(3);
-					//Prompt user to continue with AniApp
-					isAnilistActive = await confirm({
-						message: 'Do you want to continue?',
-						default: true,
-					});
-					await removeLines(3);
-                    continue;
-				}
-				
-				//Process aniList data
-				console.log(AniListTable(aniListAPIResponse.data));
-				await timeout(1500);
-
+			if(!aniListAPIResponse.success){
+				console.error("An error occurred while fetching data from AniList API.");
+				await timeout(2000);
+				await removeLines(3);
 				//Prompt user to continue with AniApp
 				isAnilistActive = await confirm({
 					message: 'Do you want to continue?',
 					default: true,
 				});
-
-				clearScreen([
-					anilistTitleGraphic,
-					mainDescriptionBox('Search information about your favourite anime!'),
-				]);
+				await removeLines(3);
+				continue;
 			}
-		}
+			
+			//Process aniList data
+			console.log(AniListTable(aniListAPIResponse.data));
+			await timeout(1500);
 
-		resolve(); //go back to home page
-	});
+			//Prompt user to continue with AniApp
+			isAnilistActive = await confirm({
+				message: 'Do you want to continue?',
+				default: true,
+			});
+
+			clearScreen([
+				anilistTitleGraphic,
+				mainDescriptionBox('Search information about your favourite anime!'),
+			]);
+		}
+	}
 };
 
 export default aniListApp;
