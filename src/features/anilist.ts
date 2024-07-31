@@ -23,6 +23,7 @@ const processUserSelection = (selections: string[]): UserSelectionAniList => {
 
 	const attributesArray = Object.keys(userSelection.searchAttributes);
 
+	//Compare selected attributes with all attributes in above object
 	for (let selectedAttribute of selections) {
 		attributesArray.forEach((attribute) => {
 			if (selectedAttribute === attribute) {

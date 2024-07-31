@@ -39,12 +39,23 @@ export const hangmanTitle = (inputText) => {
     const ASCIIColor = chalk.red(ASCII);
     return ASCIIColor;
 };
+export const sentenceTitle = (inputText) => {
+    const ASCII = figlet.textSync(inputText, {
+        font: 'Standard',
+        horizontalLayout: 'default',
+        verticalLayout: 'default',
+        width: 150,
+        whitespaceBreak: true,
+    });
+    const ASCIIColor = chalk.red(ASCII);
+    return ASCIIColor;
+};
 export const settingsTitle = (inputText) => {
     const ASCII = figlet.textSync(inputText, {
         font: 'Standard',
         horizontalLayout: 'default',
         verticalLayout: 'default',
-        width: 30,
+        width: 50,
         whitespaceBreak: true,
     });
     const ASCIIColor = chalk.red(ASCII);

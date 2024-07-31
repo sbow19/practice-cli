@@ -15,10 +15,10 @@ const refreshScreen = async()=>{
 	const settingsTitleText = settingsTitle('Settings');
 	const settingsTitleGraphic = settingsHeaderBox(settingsTitleText);
     const settingsValues = settingsValuesBox(configSettings);
-    console.log(settingsValues);
 	clearScreen([
 		settingsTitleGraphic,
 		mainDescriptionBox("Change your settings"),
+        settingsValues
 	]);
 
 
@@ -40,18 +40,20 @@ const settings = async ():Promise<void>=>{
 		default: true,
 	});
 
+    await removeLines(2);
+
     //Start settings loop
     while(isSettingsActive){
         
         await createDefaultConfigFile();
+
+        await refreshScreen();
 
         //Prompt for continue
         isSettingsActive = await confirm({
             message: 'Do you want to update settings?',
             default: true,
         });
-
-        await removeLines(2);
     }
 
 

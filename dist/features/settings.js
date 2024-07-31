@@ -9,10 +9,10 @@ const refreshScreen = async () => {
     const settingsTitleText = settingsTitle('Settings');
     const settingsTitleGraphic = settingsHeaderBox(settingsTitleText);
     const settingsValues = settingsValuesBox(configSettings);
-    console.log(settingsValues);
     clearScreen([
         settingsTitleGraphic,
         mainDescriptionBox("Change your settings"),
+        settingsValues
     ]);
 };
 const settings = async () => {
@@ -23,13 +23,14 @@ const settings = async () => {
         message: 'Do you want to update settings?',
         default: true,
     });
+    await removeLines(2);
     while (isSettingsActive) {
         await createDefaultConfigFile();
+        await refreshScreen();
         isSettingsActive = await confirm({
             message: 'Do you want to update settings?',
             default: true,
         });
-        await removeLines(2);
     }
 };
 export default settings;

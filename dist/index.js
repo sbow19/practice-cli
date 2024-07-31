@@ -50,6 +50,7 @@ else if (configCheck.configSettings) {
 await timeout(2000);
 await removeLines(1);
 while (isCLIActive) {
+    const { configSettings: userSettings } = await checkDefaultExists();
     clearScreen([
         mainDescriptionBox('A simple command-line interface tool to show off some JS functionality!', `Welcome ${userSettings?.name ?? 'User'}`),
     ]);

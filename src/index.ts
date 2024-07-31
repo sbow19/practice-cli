@@ -69,6 +69,10 @@ await removeLines(1);
 
 //MAIN HUB EVENT LOOP
 while (isCLIActive) {
+	
+	//Fetch user settings again
+	const { configSettings: userSettings} = await checkDefaultExists();
+
 	//Print title with figlet
 	clearScreen([
 		mainDescriptionBox(

@@ -51,6 +51,19 @@ export const hangmanHeaderBox = (inputText) => {
         backgroundColor: 'black',
     });
 };
+export const sentenceHeaderBox = (inputText) => {
+    return boxen(inputText, {
+        padding: 1,
+        margin: {
+            bottom: 1,
+        },
+        titleAlignment: 'left',
+        borderStyle: 'round',
+        align: 'left',
+        borderColor: 'red',
+        backgroundColor: 'black',
+    });
+};
 export const weatherBox = (inputText) => {
     return boxen(inputText, {
         padding: 1,
@@ -71,7 +84,6 @@ export const settingsHeaderBox = (inputText) => {
         margin: {
             bottom: 1,
         },
-        title: 'Settings',
         titleAlignment: 'left',
         borderStyle: 'doubleSingle',
         align: 'left',
@@ -81,7 +93,7 @@ export const settingsHeaderBox = (inputText) => {
 };
 export const settingsValuesBox = (configSettings) => {
     const configSetingsString = `Name: ${configSettings?.name}\n
-    Country: ${configSettings?.country}\n"
+    Country: ${configSettings?.country}\n
     City: ${configSettings?.city.name}\n`;
     return boxen(configSetingsString, {
         padding: 1,
@@ -89,9 +101,9 @@ export const settingsValuesBox = (configSettings) => {
             bottom: 1,
         },
         title: 'Settings',
-        titleAlignment: 'left',
+        titleAlignment: 'center',
         borderStyle: 'classic',
-        align: 'center',
+        align: 'left',
         borderColor: 'white',
         backgroundColor: 'black',
     });

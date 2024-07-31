@@ -51,12 +51,26 @@ export const hangmanTitle = (inputText: string) =>{
 	return ASCIIColor;
 }
 
+export const sentenceTitle = (inputText: string) =>{
+	const ASCII = figlet.textSync(inputText, {
+		font: 'Standard',
+        horizontalLayout: 'default',
+        verticalLayout: 'default',
+        width: 150,
+        whitespaceBreak: true,
+	});
+
+	const ASCIIColor = chalk.red(ASCII);
+
+	return ASCIIColor;
+}
+
 export const settingsTitle = (inputText: string)=>{
 	const ASCII = figlet.textSync(inputText, {
 		font: 'Standard',
         horizontalLayout: 'default',
         verticalLayout: 'default',
-        width: 30,
+        width: 50,
         whitespaceBreak: true,
 	});
 
