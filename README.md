@@ -4,7 +4,7 @@ A simple CLI application implementing some simple NodeJs/JavaScript features.
 
 ## About
 
-I wrote this simple CLI app to demonstrate my familiarity with JavaScript/TypeScript and features therein. 
+I wrote this simple CLI app to demonstrate my familiarity with JavaScript/TypeScript. 
 
 The app has the following features: 
 
