@@ -101,7 +101,7 @@ const aniListApp = async () => {
             mySpinner.start();
             const aniListAPIResponse = await fetchAnilistData(attributesSelection);
             mySpinner.stop();
-            await removeLines(1);
+            await removeLines(2);
             if (!aniListAPIResponse.success) {
                 console.error("An error occurred while fetching data from AniList API.");
                 await timeout(2000);

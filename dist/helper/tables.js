@@ -1,4 +1,3 @@
-import readline from 'readline';
 export const AniListTable = (aniListData) => {
     let table = '';
     const aniListDataKeys = Object.keys(aniListData);
@@ -6,23 +5,21 @@ export const AniListTable = (aniListData) => {
         if (key === '__typename') {
             continue;
         }
-        else if (key === 'supportingCharacter') {
-            let supportingCharacterString = "Supporting Characters: ";
+        else if (key === 'supportingCharacters') {
+            let supportingCharacterString = "Supporting Characters: \n";
             const supportingCharactersList = aniListData[key].nodes;
             supportingCharactersList.forEach((character) => {
-                readline.moveCursor(process.stdout, 0, 1);
-                supportingCharacterString += ` - ${character.name.full} \n`;
+                supportingCharacterString += `\t\t - ${character.name.full} \n`;
             });
-            table += `${key}: ${supportingCharacterString} \n`;
+            table += `${supportingCharacterString} \n`;
         }
-        else if (key === 'mainCharacter') {
-            let mainCharacterString = "Main Characters: ";
+        else if (key === 'mainCharacters') {
+            let mainCharacterString = "Main Characters: \n";
             const mainCharactersList = aniListData[key].nodes;
             mainCharactersList.forEach((character) => {
-                readline.moveCursor(process.stdout, 0, 1);
-                table += ` - ${character.name.full} \n`;
-                mainCharacterString += ` - ${character.name.full} \n`;
+                mainCharacterString += `\t\t - ${character.name.full} \n`;
             });
+            table += `${mainCharacterString} \n`;
         }
         else {
             table += `${key}: ${aniListData[key]} \n`;

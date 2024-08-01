@@ -91,7 +91,8 @@ while (isCLIActive) {
             {
                 name: 'Sentence Generator',
                 value: 'sentence',
-                description: 'Generate a random sentence',
+                description: 'Generate a random sentence (not available)',
+                disabled: '(not available)'
             },
             {
                 name: 'AniList',

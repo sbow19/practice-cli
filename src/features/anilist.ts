@@ -138,7 +138,7 @@ const aniListApp = async(): Promise<void> => {
 			const aniListAPIResponse = await fetchAnilistData(attributesSelection);
 
 			mySpinner.stop();
-			await removeLines(1)
+			await removeLines(2)
 
 			if(!aniListAPIResponse.success){
 				console.error("An error occurred while fetching data from AniList API.");
@@ -154,6 +154,10 @@ const aniListApp = async(): Promise<void> => {
 			}
 			
 			//Process aniList data
+			/**
+			 * BUGS:
+			 * description text too long
+			 */
 			console.log(AniListTable(aniListAPIResponse.data));
 			await timeout(1500);
 
