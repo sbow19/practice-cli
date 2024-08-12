@@ -1,5 +1,5 @@
 {
-  "name": "practice-cli",
+  "name": "practice-cli-ditch19",
   "version": "0.0.1",
   "main": "dist/index.js",
   "type": "module",
@@ -15,7 +15,6 @@
   "license": "ISC",
   "description": "Demonstration of Node, Typescript, JavaScript, and API concepts, via a little CLI project :)",
   "devDependencies": {
-    "@types/blessed": "^0.1.25",
     "@types/boxen": "^3.0.1",
     "@types/chalk-animation": "^1.6.3",
     "@types/cli-table": "^0.3.4",
