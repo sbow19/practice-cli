@@ -1,21 +1,21 @@
 # Practice-cli
 
-A simple CLI application implementing some simple NodeJs/JavaScript features.
+A simple CLI application to demonstrate my skills with JavaScript and TypeScript. This tool offers various interactive features to showcase my work with APIs and basic logic.
 
-## About
+## Features
 
 I wrote this simple CLI app to demonstrate my familiarity with JavaScript/TypeScript. 
 
 The app has the following features: 
 
-* Name and location configuration
-* Temperature display at user's location via RESTful call to Open-meteo API.
-* Hangman game for one or two players
-* Anime information display via GraphQl calls to Anilist API.
+* **Name and Location Configuration**: Set your name and location to personalize your experience with the tool.
+* **Temperature Display**: Get the current temperature for your specified location via a RESTful call to the Open-meteo API.
+* **Hangman Game**: Play the classic Hangman game in the terminal! You can play solo or with a friend. Guess the word before you run out of attempts.
+* **Anime Information**: Retrieve details about your favorite anime using the Anilist GraphQL API. Get information like plot summaries, character details, and episode listings.
 
 ## Installation
 
-You can run the CLI tool directly using npx without needing to install it globally.
+You can run the CLI tool directly using npx.
 
 To use the tool, run:
 
