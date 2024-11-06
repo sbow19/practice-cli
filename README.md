@@ -11,7 +11,7 @@ The app has the following features:
 
 * **Name and Location Configuration**: Set your name and location to personalize your experience with the tool.
 
-![Config](./screenshots/front_page.png)
+![Config](./screenshots/front_page.jpg)
 
 * **Temperature Display**: Get the current temperature for your specified location via a RESTful call to the Open-meteo API.
 
