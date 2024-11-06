@@ -1,8 +1,9 @@
 # Practice-cli
 
 A simple CLI application to demonstrate my skills with JavaScript and TypeScript. This tool offers various interactive features to showcase my work with APIs and basic logic.
+A simple CLI application to demonstrate my skills with JavaScript and TypeScript. This tool offers various interactive features to showcase my work with APIs and basic logic.
 
-## About
+## Features
 
 I wrote this simple CLI app to demonstrate my familiarity with JavaScript/TypeScript. 
 
@@ -26,6 +27,7 @@ The app has the following features:
 
 ## Installation
 
+You can run the CLI tool directly using npx.
 You can run the CLI tool directly using npx.
 
 To use the tool, run:
