@@ -1,8 +1,9 @@
 import fs from 'node:fs/promises';
-import path from 'node:path';
+import path, { dirname, join } from 'node:path';
 import os from 'node:os';
 import { input, search } from '@inquirer/prompts';
 import { getGeolocation } from '../api/weather.js';
+import { fileURLToPath } from 'node:url';
 const determineDirectoryPath = () => {
     const isWindows = process.platform === 'win32';
     const XDG_CONFIG_HOME = process.env.XDG_CONFIG_HOME ||
@@ -14,7 +15,10 @@ const determineDirectoryPath = () => {
     return [CONFIG_FILE, CONFIG_DIR];
 };
 const getListOfCountries = async () => {
-    const countryContentsRaw = await fs.readFile('./dist/assets/countries.json', {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    const jsonPath = join(__dirname, '../assets/countries.json');
+    const countryContentsRaw = await fs.readFile(jsonPath, {
         encoding: 'utf-8',
     });
     const countriesContentParsed = await JSON.parse(countryContentsRaw);
@@ -22,7 +26,10 @@ const getListOfCountries = async () => {
     return listOfCountries;
 };
 const getListOfCities = async (countryName) => {
-    const countryContentsRaw = await fs.readFile('./dist/assets/countries.json', {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    const jsonPath = join(__dirname, '../assets/countries.json');
+    const countryContentsRaw = await fs.readFile(jsonPath, {
         encoding: 'utf-8',
     });
     const countriesContentParsed = await JSON.parse(countryContentsRaw);

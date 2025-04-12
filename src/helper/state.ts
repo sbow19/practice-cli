@@ -1,8 +1,9 @@
 import fs from 'node:fs/promises';
-import path from 'node:path';
+import path, { dirname, join } from 'node:path';
 import os from 'node:os';
 import { input, confirm, search } from '@inquirer/prompts';
 import { getGeolocation } from '../api/weather.js';
+import { fileURLToPath } from 'node:url';
 
 //Helper functions
 const determineDirectoryPath = (): [string, string] => {
@@ -19,7 +20,10 @@ const determineDirectoryPath = (): [string, string] => {
 };
 
 const getListOfCountries = async () => {
-	const countryContentsRaw = await fs.readFile('./dist/assets/countries.json', {
+	const __filename = fileURLToPath(import.meta.url);
+	const __dirname = dirname(__filename)
+	const jsonPath = join(__dirname, '../assets/countries.json');
+	const countryContentsRaw = await fs.readFile(jsonPath, {
 		encoding: 'utf-8',
 	});
 	const countriesContentParsed: Object = await JSON.parse(countryContentsRaw);
@@ -30,7 +34,10 @@ const getListOfCountries = async () => {
 };
 
 const getListOfCities = async (countryName: string) => {
-	const countryContentsRaw = await fs.readFile('./dist/assets/countries.json', {
+	const __filename = fileURLToPath(import.meta.url);
+	const __dirname = dirname(__filename)
+	const jsonPath = join(__dirname, '../assets/countries.json');
+	const countryContentsRaw = await fs.readFile(jsonPath , {
 		encoding: 'utf-8',
 	});
 	const countriesContentParsed: Object = await JSON.parse(countryContentsRaw);

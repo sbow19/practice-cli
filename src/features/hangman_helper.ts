@@ -7,6 +7,8 @@ import { clearScreen } from '#helper/stdout_funcs.js';
 import chalk from 'chalk';
 import { removeLines } from '#helper/stdout_funcs.js';
 import fs from "fs/promises"
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
 
 class HangmanGame {
@@ -250,37 +252,46 @@ export class OnePlayer extends HangmanGame {
 
     async getCurrentWord(theme: string): Promise<void>{
 
+		const __filename = fileURLToPath(import.meta.url);
+		const __dirname = dirname(__filename)
+
         //Fetch correct file
         switch(theme){
-            case "movies":
-                const moviesJSON = await fs.readFile("./src/assets/hangman/movies.json", "utf-8");
+            case "movies":{
+				
+				const jsonPath = join(__dirname, '../assets/hangman/movies.json');
+                const moviesJSON = await fs.readFile(jsonPath, "utf-8");
                 const parsedMoviesList = await JSON.parse(moviesJSON);
 
                 //Select random list item
                 const randomNumberOne = Math.floor(Math.random() * parsedMoviesList.length - 1);
                 const movieName = parsedMoviesList[randomNumberOne];
 
-                this.currentWord = movieName.toLowerCase();
+                this.currentWord = movieName.toLowerCase();}
                 break
-            case "actors":
-                const actorsJSON = await fs.readFile("./src/assets/hangman/actors.json", "utf-8");
+            case "actors":{
+				const jsonPath = join(__dirname, '../assets/hangman/actors.json');
+
+                const actorsJSON = await fs.readFile(jsonPath, "utf-8");
                 const parsedActorsList = await JSON.parse(actorsJSON);
 
                 //Select random list item
                 const randomNumberTwo = Math.floor(Math.random() * parsedActorsList.length - 1);
                 const actorName = parsedActorsList[randomNumberTwo];
 
-                this.currentWord = actorName.toLowerCase();
+                this.currentWord = actorName.toLowerCase();}
                 break
-            case "countries":
-                const countriesJSON = await fs.readFile("./src/assets/countries.json", "utf-8");
+            case "countries":{
+				const jsonPath = join(__dirname, '../assets/countries.json');
+				
+                const countriesJSON = await fs.readFile(jsonPath, "utf-8");
                 const countriesObject = await JSON.parse(countriesJSON);
                 const countriesList = Object.keys(countriesObject);
 
                 //Select random list item
                 const randomNumberThree = Math.floor(Math.random() * countriesList.length - 1);
                 const country = countriesList[randomNumberThree];
-                this.currentWord = country.toLowerCase();
+                this.currentWord = country.toLowerCase();}
                 break
         
         };
