@@ -17,7 +17,7 @@ The app has the following features:
 
 ![Temp](./screenshots/weather_screenshot.png)
 
-* **Hangman Game**: Play the classic Hangman game in the terminal! You can play solo or with a friend. Guess the word before you run out of attempts.
+* **Hangman Game**: Play Hangman game in the terminal! You can play solo or with a friend. Guess the word before you run out of attempts.
 
 ![Hangman](./screenshots/hangman_screenshot.png)
 
