@@ -198,21 +198,21 @@ export class OnePlayer extends HangmanGame {
     async getCurrentWord(theme) {
         switch (theme) {
             case "movies":
-                const moviesJSON = await fs.readFile("./dist/assets/hangman/movies.json", "utf-8");
+                const moviesJSON = await fs.readFile("./src/assets/hangman/movies.json", "utf-8");
                 const parsedMoviesList = await JSON.parse(moviesJSON);
                 const randomNumberOne = Math.floor(Math.random() * parsedMoviesList.length - 1);
                 const movieName = parsedMoviesList[randomNumberOne];
                 this.currentWord = movieName.toLowerCase();
                 break;
             case "actors":
-                const actorsJSON = await fs.readFile("./dist/assets/hangman/actors.json", "utf-8");
+                const actorsJSON = await fs.readFile("./src/assets/hangman/actors.json", "utf-8");
                 const parsedActorsList = await JSON.parse(actorsJSON);
                 const randomNumberTwo = Math.floor(Math.random() * parsedActorsList.length - 1);
                 const actorName = parsedActorsList[randomNumberTwo];
                 this.currentWord = actorName.toLowerCase();
                 break;
             case "countries":
-                const countriesJSON = await fs.readFile("./dist/assets/countries.json", "utf-8");
+                const countriesJSON = await fs.readFile("./src/assets/countries.json", "utf-8");
                 const countriesObject = await JSON.parse(countriesJSON);
                 const countriesList = Object.keys(countriesObject);
                 const randomNumberThree = Math.floor(Math.random() * countriesList.length - 1);
